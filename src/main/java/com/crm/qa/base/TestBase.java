@@ -35,6 +35,7 @@ public class TestBase {
     public static EventFiringWebDriver e_driver;
     public static WebEventListener eventListener;
     public static ExtentTest logger;
+    public static ExtentTest logger1;
     public static ExtentReports extent;
     public static ExtentHtmlReporter reporter;
 
@@ -102,12 +103,13 @@ public class TestBase {
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
         if(result.getStatus()==ITestResult.FAILURE){
-            logger.info("Reason for Test Failure");
-            logger.error(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
-            logger.fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
+            logger1.info("Reason for Test Failure");
+            logger1.info(result.getThrowable().toString());
+            logger1.error(result.getThrowable(), MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
+            logger1.fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
         }
         else if(result.getStatus()==ITestResult.SUCCESS){
-            logger.pass("Test Passed", MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
+            logger1.pass("Test Passed", MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
         }
         else if(result.getStatus()==ITestResult.SKIP){
             logger.skip("Test Skipped", MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(driver)).build());
